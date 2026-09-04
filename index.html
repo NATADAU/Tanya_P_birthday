@@ -1,0 +1,629 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#f8f0ea" />
+  <meta name="description" content="Поздравление для Татьяны от друзей — с фотографиями, музыкой и фейерверком." />
+  <meta property="og:title" content="Татьяна, с днём рождения!" />
+  <meta property="og:description" content="Для человека, рядом с которым всегда чуть теплее и веселее." />
+  <meta property="og:image" content="assets/og.jpg" />
+  <title>Татьяна, с днём рождения!</title>
+
+  <style>
+    :root{
+      --cream:#fbf7f2;
+      --milk:#fffdf9;
+      --blush:#f3d9df;
+      --rose:#d98aa0;
+      --lilac:#ddd7ef;
+      --sage:#dfe9dc;
+      --blue:#dce8ef;
+      --peach:#f4dfc7;
+      --ink:#3e3536;
+      --muted:#75696b;
+      --line:rgba(62,53,54,.14);
+      --white:rgba(255,255,255,.84);
+      --shadow:0 18px 60px rgba(76,55,60,.10);
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      background:var(--cream);
+      color:var(--ink);
+      font-family:Inter, ui-sans-serif, system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      overflow-x:hidden;
+    }
+    img{display:block;width:100%;height:100%;object-fit:cover}
+    button,a{font:inherit}
+    button{cursor:pointer}
+    ::selection{background:var(--blush);color:var(--ink)}
+    #fireworks{position:fixed;inset:0;z-index:50;pointer-events:none}
+
+    .grain{
+      position:fixed;inset:0;pointer-events:none;z-index:60;opacity:.035;mix-blend-mode:multiply;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.4'/%3E%3C/svg%3E");
+    }
+
+    .music{
+      position:fixed;top:18px;right:18px;z-index:40;
+      border:1px solid var(--line);
+      background:rgba(255,253,249,.82);
+      backdrop-filter:blur(14px);
+      color:var(--ink);
+      border-radius:999px;
+      padding:10px 14px;
+      display:flex;align-items:center;gap:9px;
+      box-shadow:0 8px 28px rgba(70,50,54,.08);
+      transition:.2s ease;
+    }
+    .music:hover{transform:translateY(-1px)}
+    .music-dot{
+      width:8px;height:8px;border-radius:50%;
+      background:var(--rose);
+    }
+    .music.playing .music-dot{animation:pulse 1s infinite alternate}
+    @keyframes pulse{to{transform:scale(1.55)}}
+
+    .hero{
+      min-height:100svh;
+      padding:86px clamp(20px,5vw,72px) 54px;
+      display:grid;
+      grid-template-columns:minmax(0,.92fr) minmax(380px,1.08fr);
+      gap:clamp(30px,5vw,80px);
+      align-items:center;
+      position:relative;
+      overflow:hidden;
+      background:
+        radial-gradient(circle at 12% 18%, rgba(243,217,223,.75), transparent 24%),
+        radial-gradient(circle at 82% 14%, rgba(221,215,239,.7), transparent 25%),
+        linear-gradient(180deg,#fbf7f2 0%,#f9f2ec 100%);
+    }
+    .hero:before,
+    .hero:after{
+      content:"";
+      position:absolute;border:1px solid rgba(62,53,54,.08);border-radius:50%;
+      pointer-events:none
+    }
+    .hero:before{width:520px;height:520px;left:-260px;bottom:-220px}
+    .hero:after{width:390px;height:390px;right:-180px;top:-160px}
+
+    .hero-copy{position:relative;z-index:3}
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:12px;
+      text-transform:uppercase;letter-spacing:.17em;font-size:11px;font-weight:750;color:var(--muted);
+      margin-bottom:22px;
+    }
+    .eyebrow:before{content:"";width:40px;height:1px;background:var(--rose)}
+    h1,h2,h3{font-family:Georgia,"Times New Roman",serif}
+    h1{
+      font-size:clamp(58px,8vw,118px);
+      line-height:.9;
+      letter-spacing:-.045em;
+      margin:0 0 28px;
+      font-weight:500;
+    }
+    h1 em{
+      display:block;
+      font-style:italic;
+      color:var(--rose);
+      font-weight:400;
+    }
+    .hero-text{
+      font-size:clamp(18px,1.8vw,25px);
+      line-height:1.55;
+      color:#5f5456;
+      max-width:620px;
+      margin:0 0 28px;
+    }
+    .hero-note{
+      font-family:Georgia,"Times New Roman",serif;
+      font-style:italic;
+      font-size:22px;
+      color:#8d6b74;
+      margin-top:34px;
+    }
+
+    .btn{
+      border:0;border-radius:999px;padding:13px 18px;
+      display:inline-flex;align-items:center;gap:8px;
+      text-decoration:none;
+      font-weight:700;
+      transition:.2s ease;
+    }
+    .btn-primary{background:#e6a6b7;color:white}
+    .btn-secondary{background:rgba(255,255,255,.5);border:1px solid var(--line);color:var(--ink)}
+    .btn:hover{transform:translateY(-2px)}
+    .actions{display:flex;flex-wrap:wrap;gap:10px}
+
+    .hero-gallery{
+      position:relative;
+      min-height:650px;
+      z-index:2;
+    }
+    .frame{
+      position:absolute;
+      overflow:hidden;
+      background:white;
+      box-shadow:var(--shadow);
+      border:8px solid rgba(255,255,255,.9);
+      border-radius:28px;
+    }
+    /* Размеры рамок повторяют реальные пропорции фотографий:
+       горизонтальные 3:2, вертикальная 2:3. */
+    .frame.one{width:62%;aspect-ratio:3/2;left:2%;top:11%;transform:rotate(-3deg)}
+    .frame.two{width:45%;aspect-ratio:3/2;right:0;top:5%;transform:rotate(4deg)}
+    .frame.three{width:34%;aspect-ratio:2/3;right:11%;bottom:0;transform:rotate(-4deg)}
+    .frame img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      object-position:center;
+      transition:transform .7s ease
+    }
+    .frame:hover img{transform:scale(1.018)}
+    .tiny-caption{
+      position:absolute;left:11%;bottom:5%;
+      font-family:Georgia,serif;font-style:italic;color:#866d73;
+      font-size:18px;transform:rotate(-4deg)
+    }
+
+    .section{
+      padding:clamp(72px,9vw,126px) clamp(20px,5vw,72px);
+    }
+    .section-head{
+      max-width:900px;
+      margin:0 auto 52px;
+      text-align:center;
+    }
+    .section-kicker{
+      text-transform:uppercase;letter-spacing:.18em;
+      font-size:11px;font-weight:750;color:#85777a;
+      margin-bottom:12px;
+    }
+    h2{
+      font-size:clamp(42px,5.4vw,74px);
+      line-height:1;
+      letter-spacing:-.035em;
+      font-weight:500;
+      margin:0 0 18px;
+    }
+    .section-head p{
+      margin:0 auto;
+      max-width:760px;
+      color:var(--muted);
+      font-size:18px;
+      line-height:1.65;
+    }
+
+    .thoughts{
+      background:var(--milk);
+    }
+    .thought-list{
+      max-width:980px;
+      margin:auto;
+      display:grid;
+      gap:0;
+      border-top:1px solid var(--line);
+    }
+    .thought{
+      display:grid;
+      grid-template-columns:100px 1fr;
+      gap:22px;
+      padding:28px 0;
+      border-bottom:1px solid var(--line);
+      align-items:start;
+      opacity:0;transform:translateY(12px);
+      transition:.6s ease;
+    }
+    .thought.show{opacity:1;transform:none}
+    .thought .num{
+      color:#a89498;
+      font-size:12px;
+      letter-spacing:.16em;
+      padding-top:8px;
+    }
+    .thought h3{
+      margin:0 0 8px;
+      font-size:clamp(27px,3vw,40px);
+      line-height:1.1;
+      font-weight:500;
+    }
+    .thought p{
+      margin:0;
+      color:var(--muted);
+      font-size:17px;
+      line-height:1.62;
+      max-width:720px;
+    }
+
+    .photos{
+      background:linear-gradient(180deg,#f8f2ed,#f6efe9);
+    }
+    .gallery{
+      max-width:1180px;
+      margin:auto;
+      columns:3 280px;
+      column-gap:14px;
+    }
+    .photo{
+      overflow:hidden;
+      border-radius:24px;
+      box-shadow:0 12px 34px rgba(72,52,56,.09);
+      background:white;
+      margin:0 0 14px;
+      break-inside:avoid;
+    }
+    .photo img{
+      display:block;
+      width:100%;
+      height:auto;
+      object-fit:contain;
+      transition:transform .7s ease
+    }
+    .photo:hover img{transform:scale(1.018)}
+    .quote{
+      max-width:900px;
+      margin:44px auto 0;
+      text-align:center;
+      font-family:Georgia,"Times New Roman",serif;
+      font-style:italic;
+      font-size:clamp(25px,3.5vw,42px);
+      line-height:1.35;
+      color:#80666e;
+    }
+
+    .final{
+      text-align:center;
+      background:#f7e5e8;
+      position:relative;
+      overflow:hidden;
+    }
+    .final:before,.final:after{
+      content:"✦";
+      position:absolute;
+      color:rgba(165,120,132,.26);
+      font-size:80px;
+    }
+    .final:before{left:8%;top:18%;transform:rotate(16deg)}
+    .final:after{right:9%;bottom:13%;transform:rotate(-13deg)}
+    .final-inner{max-width:920px;margin:auto;position:relative;z-index:2}
+    .final p{
+      font-size:clamp(19px,2.2vw,28px);
+      line-height:1.6;
+      color:#675a5d;
+      margin:0 auto 28px;
+      max-width:800px;
+    }
+    .signature{
+      font-family:Georgia,"Times New Roman",serif;
+      font-style:italic;
+      font-size:clamp(34px,5vw,58px);
+      color:#a56f7f;
+      margin-top:34px;
+    }
+
+    .footer{
+      padding:20px clamp(20px,5vw,72px);
+      background:#fbf7f2;
+      color:#8d7f82;
+      font-size:12px;
+      letter-spacing:.11em;
+      text-transform:uppercase;
+      text-align:center;
+      border-top:1px solid var(--line)
+    }
+
+    .toast{
+      position:fixed;left:50%;bottom:22px;z-index:70;
+      transform:translate(-50%,18px);
+      background:#4a3d40;color:white;
+      border-radius:14px;padding:11px 14px;
+      font-size:14px;opacity:0;pointer-events:none;
+      transition:.2s ease;
+    }
+    .toast.show{opacity:1;transform:translate(-50%,0)}
+
+    @media(max-width:900px){
+      .hero{grid-template-columns:1fr;padding-top:78px}
+      .hero-gallery{min-height:560px;order:-1}
+      .frame.one{width:64%;left:1%;top:15%}
+      .frame.two{width:45%;right:0;top:5%}
+      .frame.three{width:35%;right:10%;bottom:0}
+      .thought{grid-template-columns:70px 1fr}
+      .gallery{columns:2 240px}
+    }
+
+    @media(max-width:560px){
+      .hero{padding-inline:18px;gap:26px}
+      .hero-gallery{min-height:430px}
+      .frame{border-width:5px;border-radius:20px}
+      .frame.one{width:67%;left:0;top:16%}
+      .frame.two{width:47%;right:0;top:5%}
+      .frame.three{width:36%;right:8%;bottom:0}
+      .tiny-caption{font-size:15px;left:2%;bottom:-1%}
+      .section{padding-inline:18px}
+      .thought{grid-template-columns:1fr;gap:8px}
+      .thought .num{padding-top:0}
+      .gallery{columns:1}
+      .photo{margin-bottom:10px}
+      .music .label{display:none}
+    }
+
+    @media(prefers-reduced-motion:reduce){
+      html{scroll-behavior:auto}
+      *,*:before,*:after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+      #fireworks{display:none}
+    }
+  </style>
+</head>
+<body>
+  <canvas id="fireworks" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+
+  <audio id="audio" preload="none" src="tanya-music.mp3"></audio>
+  <button class="music" id="musicBtn" type="button" aria-pressed="false" title="Включить музыку">
+    <span class="music-dot" aria-hidden="true"></span>
+    <span class="label">музыка</span>
+  </button>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <header class="hero">
+    <div class="hero-copy">
+      <div class="eyebrow">для Татьяны — с любовью</div>
+      <h1>С днём рождения,<em>Таня.</em></h1>
+      <p class="hero-text">
+        Пусть у тебя всегда остаётся это удивительное свойство — входить в день так, будто он приготовил для тебя что-то хорошее.
+        Замечать смешное, радоваться красивому и каким-то чудом собирать рядом тех, с кем даже обычный вторник становится событием.
+      </p>
+      <div class="actions">
+        <button class="btn btn-primary" type="button" id="partyBtn">Немного волшебства ✦</button>
+        <a class="btn btn-secondary" href="#memories">Листать дальше</a>
+      </div>
+      <div class="hero-note">Сегодня можно никуда не спешить. Сегодня весь город, все сцены и все наши истории — немного про тебя.</div>
+    </div>
+
+    <div class="hero-gallery" aria-label="Фотографии Татьяны и друзей">
+      <figure class="frame one">
+        <img src="assets/photo-01.webp" alt="Татьяна на прогулке" fetchpriority="high">
+      </figure>
+      <figure class="frame two">
+        <img src="assets/photo-02.webp" alt="Весёлое фото с друзьями" loading="eager">
+      </figure>
+      <figure class="frame three">
+        <img src="assets/photo-04.webp" alt="Домашнее фото с рыжим котом" loading="eager">
+      </figure>
+      <div class="tiny-caption">места меняются, свои — остаются</div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section thoughts">
+      <div class="section-head">
+        <div class="section-kicker">то, за что мы тебя любим</div>
+        <h2>Рядом с тобой жизнь как будто вспоминает, что она вообще-то прекрасная штука.</h2>
+        <p>
+          Ты умеешь увидеть красоту там, где другие проходят мимо, придумать маленькое приключение из обычной прогулки
+          и рассмеяться так, что уже никто не помнит, с чего всё началось. А главное — рядом с тобой хочется оставаться собой.
+        </p>
+      </div>
+
+      <div class="thought-list">
+        <article class="thought">
+          <div class="num">01</div>
+          <div>
+            <h3>Тебе всё ещё интересно, что там за следующим углом.</h3>
+            <p>
+              И это очень про тебя. Незнакомый двор, старый дом, экскурсия, музей, маленькая табличка на стене —
+              и вот уже город открывает ещё одну дверцу, которую без тебя мы, может быть, и не заметили бы.
+            </p>
+          </div>
+        </article>
+
+        <article class="thought">
+          <div class="num">02</div>
+          <div>
+            <h3>Ты ходишь в театр не просто смотреть спектакль.</h3>
+            <p>
+              Тебе нужен тот самый вечер целиком: сцена, свет, пауза перед поклонами, потом улица, разговоры,
+              спор о героях и дорога домой, в которой спектакль всё ещё продолжается.
+            </p>
+          </div>
+        </article>
+
+        <article class="thought">
+          <div class="num">03</div>
+          <div>
+            <h3>А ещё ты умеешь быть рядом. По-настоящему.</h3>
+            <p>
+              Без лишних слов и без красивых обещаний. Просто написать, позвонить, предложить встретиться —
+              и уже заранее знать, что будет тепло, смешно и как-то по-домашнему хорошо.
+            </p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section photos" id="memories">
+      <div class="section-head">
+        <div class="section-kicker">несколько кадров вместо тысячи слов</div>
+        <h2>Наверное, счастье примерно так и выглядит.</h2>
+        <p>
+          Не обязательно из больших событий. Чаще — из прогулки, поездки, неудачного селфи, внезапного смеха,
+          кота, который улёгся не туда, и людей рядом, с которыми не надо стараться быть лучше, чем ты есть.
+        </p>
+      </div>
+
+      <div class="gallery">
+        <figure class="photo">
+          <img src="assets/photo-02.webp" alt="Весёлое фото с друзьями в зеркальной инсталляции" loading="lazy">
+        </figure>
+        <figure class="photo">
+          <img src="assets/photo-05.webp" alt="Татьяна с друзьями на прогулке" loading="lazy">
+        </figure>
+        <figure class="photo">
+          <img src="assets/photo-06.webp" alt="Селфи двух подруг" loading="lazy">
+        </figure>
+        <figure class="photo">
+          <img src="assets/photo-03.webp" alt="Вечернее селфи друзей" loading="lazy">
+        </figure>
+        <figure class="photo">
+          <img src="assets/photo-01.webp" alt="Фото на природе" loading="lazy">
+        </figure>
+      </div>
+
+      <div class="quote">
+        Пусть впереди будет ещё много таких дней, которые сначала кажутся самыми обычными,
+        а потом вдруг выясняется, что именно их и хочется хранить особенно бережно.
+      </div>
+    </section>
+
+    <section class="section final">
+      <div class="final-inner">
+        <div class="section-kicker">на новый год твоей жизни</div>
+        <h2>Пусть хорошего будет много. И пусть оно не проходит мимо.</h2>
+        <p>
+          Пусть будут новые улицы и любимые театры, неожиданные поездки и тихие вечера,
+          разговоры до позднего часа и люди, рядом с которыми спокойно.
+          Пусть здоровье не подводит, дома будет уютно, хвосты — довольны,
+          а у нас всегда находится повод встретиться, даже если никакого повода, в общем-то, нет.
+        </p>
+        <button class="btn btn-primary" type="button" id="fireworkBtn">Фейерверк для Тани ✦</button>
+        <div class="signature">С днём рождения, Таня. И спасибо, что ты у нас есть.</div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    для Татьяны · от друзей · с любовью
+  </footer>
+
+  <script>
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const toast = document.getElementById('toast');
+    function showToast(text){
+      toast.textContent = text;
+      toast.classList.add('show');
+      clearTimeout(showToast.t);
+      showToast.t = setTimeout(()=>toast.classList.remove('show'), 2600);
+    }
+
+    const audio = document.getElementById('audio');
+    const musicBtn = document.getElementById('musicBtn');
+    let playing = false;
+
+    musicBtn.addEventListener('click', async () => {
+      try{
+        if(!playing){
+          await audio.play();
+          playing = true;
+          musicBtn.classList.add('playing');
+          musicBtn.setAttribute('aria-pressed','true');
+          musicBtn.title = 'Поставить музыку на паузу';
+        }else{
+          audio.pause();
+          playing = false;
+          musicBtn.classList.remove('playing');
+          musicBtn.setAttribute('aria-pressed','false');
+          musicBtn.title = 'Включить музыку';
+        }
+      }catch(e){
+        showToast('Добавьте файл tanya-music.mp3 в корень репозитория');
+      }
+    });
+
+    audio.addEventListener('ended',()=>{
+      playing=false;
+      musicBtn.classList.remove('playing');
+      musicBtn.setAttribute('aria-pressed','false');
+    });
+
+    const thoughts = document.querySelectorAll('.thought');
+    const observer = new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          entry.target.classList.add('show');
+          observer.unobserve(entry.target);
+        }
+      });
+    },{threshold:.18});
+    thoughts.forEach(el=>observer.observe(el));
+
+    const canvas = document.getElementById('fireworks');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    let raf = null;
+
+    function resize(){
+      const dpr = Math.min(devicePixelRatio || 1, 2);
+      canvas.width = innerWidth * dpr;
+      canvas.height = innerHeight * dpr;
+      canvas.style.width = innerWidth + 'px';
+      canvas.style.height = innerHeight + 'px';
+      ctx.setTransform(dpr,0,0,dpr,0,0);
+    }
+    addEventListener('resize',resize,{passive:true});
+    resize();
+
+    const colors=['#ff3b30','#ff9500','#ffd60a','#34c759','#00c7ff','#007aff','#af52de','#ff2d55','#ffffff'];
+
+    function burst(x,y,count=86){
+      if(reduceMotion) return;
+      for(let i=0;i<count;i++){
+        const a=Math.random()*Math.PI*2;
+        const s=2.2+Math.random()*7.0;
+        particles.push({
+          x,y,
+          vx:Math.cos(a)*s,
+          vy:Math.sin(a)*s,
+          life:62+Math.random()*42,
+          age:0,
+          r:1.4+Math.random()*2.8,
+          c:colors[(Math.random()*colors.length)|0],
+          g:.045+Math.random()*.04
+        });
+      }
+      if(!raf) animate();
+    }
+
+    function animate(){
+      ctx.clearRect(0,0,innerWidth,innerHeight);
+      particles = particles.filter(p=>p.age<p.life);
+      for(const p of particles){
+        p.age++;
+        p.vx *= .989;
+        p.vy = p.vy*.989 + p.g;
+        p.x += p.vx;
+        p.y += p.vy;
+        ctx.globalAlpha = Math.max(0,1-p.age/p.life);
+        ctx.save();
+        ctx.shadowBlur = 14;
+        ctx.shadowColor = p.c;
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fillStyle=p.c;
+        ctx.fill();
+        ctx.restore();
+      }
+      ctx.globalAlpha=1;
+      if(particles.length) raf=requestAnimationFrame(animate);
+      else{raf=null;ctx.clearRect(0,0,innerWidth,innerHeight)}
+    }
+
+    function party(){
+      if(reduceMotion) return;
+      burst(innerWidth*.18,innerHeight*.26,96);
+      setTimeout(()=>burst(innerWidth*.78,innerHeight*.30,108),140);
+      setTimeout(()=>burst(innerWidth*.50,innerHeight*.16,92),280);
+      setTimeout(()=>burst(innerWidth*.34,innerHeight*.50,86),430);
+      setTimeout(()=>burst(innerWidth*.68,innerHeight*.54,90),560);
+    }
+
+    document.getElementById('partyBtn').addEventListener('click',party);
+    document.getElementById('fireworkBtn').addEventListener('click',party);
+  </script>
+</body>
+</html>
